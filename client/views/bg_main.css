@@ -1,0 +1,12 @@
+
+main section {
+  min-height: 600px;
+  background-color: #ddd;
+  padding: 20px;
+}
+
+footer {
+  min-height: 100px;
+  text-align: center;
+  padding: 20px;
+}
