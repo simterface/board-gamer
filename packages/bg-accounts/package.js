@@ -11,6 +11,7 @@ Package.onUse(function(api) {
       'accounts-base',
       'accounts-password',
       'accounts-facebook',
+      'accounts-google',
       'accounts-ui',
       'service-configuration'
   ], both);

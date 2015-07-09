@@ -13,3 +13,6 @@ ServiceConfiguration.configurations.upsert({service: 'facebook'}, {
 });
 
 //google
+ServiceConfiguration.configurations.upsert({service: 'google'},{
+  $set: configs.google
+});
