@@ -1,5 +1,5 @@
 
-main section {
+main > section {
   min-height: 600px;
   background-color: #ddd;
   padding: 20px;

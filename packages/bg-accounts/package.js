@@ -35,6 +35,8 @@ Package.onUse(function(api) {
 
   //client only
   api.addFiles([
-      'bg_accounts_ui.html'
+      'bg_accounts_ui.html',
+      'views/sign_in.html',
+      'views/sign_in.css'
     ], client);
 });
