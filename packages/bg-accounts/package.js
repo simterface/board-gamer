@@ -10,6 +10,7 @@ Package.onUse(function(api) {
   api.use([
       'accounts-base',
       'accounts-password',
+      'mrt:accounts-vk',
       'accounts-facebook',
       'accounts-google',
       'accounts-ui',
@@ -39,7 +40,9 @@ Package.onUse(function(api) {
   //client only
   api.addFiles([
       'bg_accounts_ui.html',
+      'bg_accounts_ui.js',
       'views/sign_in.html',
       'views/sign_in.css',
+      'views/sign_in.js',
     ], client);
 });
