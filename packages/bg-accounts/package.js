@@ -13,7 +13,8 @@ Package.onUse(function(api) {
       'accounts-facebook',
       'accounts-google',
       'accounts-ui',
-      'service-configuration'
+      'service-configuration',
+      'iron:router'
   ], both);
 
   api.use([
@@ -22,7 +23,9 @@ Package.onUse(function(api) {
 
   //files
   //shared
-  // api.addFiles([], both);
+  api.addFiles([
+    'router.js'
+  ], both);
 
   //server only
   api.addFiles([
@@ -37,6 +40,6 @@ Package.onUse(function(api) {
   api.addFiles([
       'bg_accounts_ui.html',
       'views/sign_in.html',
-      'views/sign_in.css'
+      'views/sign_in.css',
     ], client);
 });
