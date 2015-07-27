@@ -1,12 +1,14 @@
 Package.describe({
-  summary: "Accounting package for board-gamer",
-  version: "0.0.1",
-  name: "simterface:bg-accounts"
+  summary: 'Accounting package for board-gamer',
+  version: '0.0.1',
+  name: 'simterface:bg-accounts',
 });
 
 Package.onUse(function(api) {
-  var client = 'client', server = 'server', both = [client, server];
-  //packages
+  var client = 'client';
+  var server = 'server';
+  var both = [client, server];
+  // Packages
   api.use([
       'accounts-base',
       'accounts-password',
@@ -15,29 +17,35 @@ Package.onUse(function(api) {
       'accounts-google',
       'accounts-ui',
       'service-configuration',
-      'iron:router'
+      'iron:router',
   ], both);
 
   api.use([
-      'templating'
+      'templating',
     ], client);
 
-  //files
-  //shared
+  api.use([
+    'email',
+  ], server);
+
+  // Files
+  // Shared
   api.addFiles([
-    'router.js'
+    'router.js',
   ], both);
 
-  //server only
+  // Server only
   api.addFiles([
-      'config.js'
+      'server/config.js',
+      'server/email_tmp.js', // TODO remove tmp file
+      'server/bg_accounts.js',
     ], server);
-  //Assets
+  // Assets
   api.addFiles([
-    'private/services_settings.json'
-  ],server,{isAsset: true});
+    'private/services_settings.json',
+  ], server, {isAsset: true});
 
-  //client only
+  // Client only
   api.addFiles([
       'bg_accounts_ui.html',
       'bg_accounts_ui.js',
