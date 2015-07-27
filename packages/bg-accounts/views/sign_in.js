@@ -1,3 +1,5 @@
+// TODO 6. Handle reset password transactions
+// TODO 9. Redirect user to appropriate page instead of home
 
 Template.bgAccountsSignIn.helpers({});
 
@@ -14,7 +16,7 @@ Template.bgAccountsSignIn.events({
   'click #bgAccountsCreateNewLnk': function(event, template) {
     event.preventDefault();
     var form = template.find('#bgAccountsLoginForm');
-    // TODO add input validation
+    // TODO 2. Validate empty email and short password
     var userObject = {
       email: form.elements['email'].value,
       password: form.elements['password'].value,
@@ -56,7 +58,7 @@ function loginSocial(network) {
   }
   var loginMethod = Meteor[methodsMap[network]];
   if (!loginMethod) {
-    displayError('Ошибка авторизации: сервис не настроен.')
+    displayError('Ошибка авторизации: сервис не настроен.');
     return;
   }
   loginMethod(function(err) {

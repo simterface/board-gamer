@@ -1,10 +1,12 @@
+// TODO 10. Add user roles
+
 // Basic accounts config
 Accounts.config({
   sendVerificationEmail: true,
   loginExpirationInDays: 30,
 });
 
-// TODO add email templates config
+// TODO 1. Add basic email templates configurations
 
 
 // Ensure that profile displayName is set
@@ -24,7 +26,7 @@ Accounts.onCreateUser(function(options, user) {
   return user;
 });
 
-// TODO add login validation logic to check if user email is verified
+// TODO 3. Check if user email is verified
 
 function extractName(userObj) {
   var NONAME = 'Без имени';
