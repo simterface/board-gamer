@@ -34,16 +34,18 @@ Package.onUse(function(api) {
     'router.js',
   ], both);
 
+  // Assets
+  api.addFiles([
+    'private/services_settings.json',
+    'private/email_templates.json',
+  ], server, {isAsset: true});
+
   // Server only
   api.addFiles([
       'server/config.js',
       'server/email_tmp.js', // TODO remove tmp file
       'server/bg_accounts.js',
     ], server);
-  // Assets
-  api.addFiles([
-    'private/services_settings.json',
-  ], server, {isAsset: true});
 
   // Client only
   api.addFiles([

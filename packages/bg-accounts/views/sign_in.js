@@ -16,7 +16,10 @@ Template.bgAccountsSignIn.events({
   'click #bgAccountsCreateNewLnk': function(event, template) {
     event.preventDefault();
     var form = template.find('#bgAccountsLoginForm');
-    // TODO 2. Validate empty email and short password
+    if (! validateFormFields(form)) {
+      return;
+    }
+
     var userObject = {
       email: form.elements['email'].value,
       password: form.elements['password'].value,
@@ -74,9 +77,13 @@ function loginSocial(network) {
 function composeErrorMsg(err) {
   console.log(err);
   var msg;
-  switch (err.error) {
-    case 403: {
+  switch (err.reason.toLowerCase()) {
+    case 'user not found': {
       msg = 'Пользователь не найден';
+      break;
+    }
+    case 'incorrect password': {
+      msg = 'Неверный пароль';
       break;
     }
     default: {
@@ -93,10 +100,29 @@ function displayError(msg) {
 }
 
 function buildErrorBlock(msg) {
-  return $('<div></div>').addClass('alert alert-danger fade in text-center').append('<a href="#" class="close" data-dismiss="alert">&times;</a>').append(msg);
+  return $('<div></div>')
+  .addClass('alert alert-danger fade in text-center')
+  .append('<a href="#" class="close" data-dismiss="alert">&times;</a>')
+  .append(msg);
 }
 
 function goToHomePage() {
   // TODO: place default route to some config
   Router.go('/');
+}
+
+function validateFormFields(form) {
+  var hasError = false;
+  var email = form.elements['email'].value;
+  if (email.length < 1) {
+    displayError('Введите адрес электронной почты');
+    hasError = true;
+  }
+
+  var password = form.elements['password'].value;
+  if (password.length < 6) {
+    displayError('Пароль должен содержать не менее 6 символов');
+    hasError = true;
+  }
+  return !hasError;
 }

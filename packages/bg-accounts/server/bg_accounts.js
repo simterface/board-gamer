@@ -6,8 +6,37 @@ Accounts.config({
   loginExpirationInDays: 30,
 });
 
-// TODO 1. Add basic email templates configurations
+Assets.getText('private/email_templates.json', function(err, result) {
+  if (err) {
+    console.log(err.reason);
+  } else {
+    var config = JSON.parse(result);
+    Accounts.emailTemplates.siteName = config.siteName;
+    Accounts.emailTemplates.from = config.from;
+    Accounts.emailTemplates.verifyEmail.subject = function() {
+      return config.verifyEmail.subject;
+    };
+    Accounts.emailTemplates.verifyEmail.html = function(user, url) {
+      var str = config.verifyEmail.htmlTemplate.join('\n');
+      str = replaceAllHelper(str, 'user', user.profile.nickname);
+      return replaceAllHelper(str, 'url', url);
+    };
+    Accounts.emailTemplates.resetPassword.subject = function() {
+      return config.resetPassword.subject;
+    };
+    Accounts.emailTemplates.resetPassword.html = function(user, url) {
+      var str = config.resetPassword.htmlTemplate.join('\n');
+      str = replaceAllHelper(str, 'user', user.profile.nickname);
+      return replaceAllHelper(str, 'url', url);
+    };
+  }
+});
 
+// Replaces {{field}} to val - like in templates
+function replaceAllHelper(str, field, val) {
+  var re = new RegExp('\{\{' + field + '\}\}', 'g');
+  return str.replace(re, val);
+}
 
 // Ensure that profile displayName is set
 Accounts.onCreateUser(function(options, user) {
@@ -40,7 +69,8 @@ function extractName(userObj) {
   // Find first service with email
   for (var service in userObj.services) {
     if (userObj.services.hasOwnProperty(service)) {
-      if (userObj.services[service].email && typeof userObj.services[service].email === 'string') {
+      if (userObj.services[service].email &&
+        typeof userObj.services[service].email === 'string') {
         var name = getNameFromEmail(userObj.services[service].email);
         if (name) {
           return name;
