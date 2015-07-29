@@ -1,10 +1,8 @@
-// TODO 5. Notify user if email is not verified. Add resend verification email.
 // TODO 7. Add profile management page: name/nickname/emails/password
 
 Template.bgAccountsUI.onRendered(function() {
-  var instance = this;
   if (Accounts._verifyEmailToken) {
-    console.log('Trying to verify email with token');
+    // TODO use alert instead of routing
     Accounts.verifyEmail(Accounts._verifyEmailToken, function(err) {
       if (err) {
         if (err.message == 'Verify email link expired [403]') {
@@ -16,9 +14,33 @@ Template.bgAccountsUI.onRendered(function() {
       }
     });
   }
+  Tracker.autorun(function() {
+    var user = Meteor.user();
+    if (user && user.emails && !user.emails[0].verified) {
+      displayUnverifiedEmailAlert();
+    }
+  });
 });
 
-Template.bgAccountsUI.helpers({});
+function displayUnverifiedEmailAlert() {
+  console.log('Displaying uverified email alert');
+  var container = $('main').find('.container-fluid')[0];
+  if (container) {
+    Blaze.render(Template.bgAccountsEmailUnverifiedNotification,
+      container,
+      container.firstElementChild);
+  }
+}
+
+Template.bgAccountsUI.helpers({
+  emailVerified: function() {
+    // Check if email verified only for password service
+    var user = Meteor.user();
+    return user &&
+      user.emails &&
+      user.emails[0].verified || !user.emails;
+  },
+});
 
 Template.bgAccountsUI.events({
   'click .bgAccounts-logout': function(event, template) {
@@ -29,14 +51,3 @@ Template.bgAccountsUI.events({
     });
   },
 });
-
-// Accounts.onEmailVerificationLink(function(token, done) {
-//   Accounts.verifyEmail(token, function(err) {
-//     if (err) {
-//       console.error(err.reason);
-//     } else {
-//       console.log('Email verified');
-//       done();
-//     }
-//   });
-// });

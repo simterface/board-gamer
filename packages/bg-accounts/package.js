@@ -15,13 +15,14 @@ Package.onUse(function(api) {
       'mrt:accounts-vk',
       'accounts-facebook',
       'accounts-google',
-      // 'accounts-ui',
       'service-configuration',
       'iron:router',
   ], both);
 
   api.use([
       'templating',
+      'reactive-var',
+      'yogiben:spinkit',
     ], client);
 
   api.use([
@@ -54,6 +55,8 @@ Package.onUse(function(api) {
       'views/sign_in.html',
       'views/sign_in.css',
       'views/sign_in.js',
+      'views/spinner.html',
       'views/email_verified.html',
+      'views/email_verified.js',
     ], client);
 });

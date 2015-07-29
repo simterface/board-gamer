@@ -16,7 +16,7 @@ Template.bgAccountsSignIn.events({
   'click #bgAccountsCreateNewLnk': function(event, template) {
     event.preventDefault();
     var form = template.find('#bgAccountsLoginForm');
-    if (! validateFormFields(form)) {
+    if (!validateFormFields(form)) {
       return;
     }
 

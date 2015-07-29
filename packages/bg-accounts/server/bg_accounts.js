@@ -58,6 +58,19 @@ Accounts.onCreateUser(function(options, user) {
   return user;
 });
 
+Meteor.methods({
+  resendVerificationEmail: function() {
+    var user = Meteor.user();
+    if (!user || !user.emails || !user.emails[0].address) {
+      throw new Meteor.Error(401,
+        'Повторное сообщение не может быть отправлено.');
+    } else {
+      Accounts.sendVerificationEmail(user._id);
+      return true;
+    }
+  },
+});
+
 function extractName(userObj) {
   var NONAME = 'Без имени';
   if (userObj.emails) {
