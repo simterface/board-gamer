@@ -2,28 +2,29 @@
 
 Template.bgAccountsUI.onRendered(function() {
   if (Accounts._verifyEmailToken) {
-    // TODO use alert instead of routing
     Accounts.verifyEmail(Accounts._verifyEmailToken, function(err) {
-      if (err) {
-        if (err.message == 'Verify email link expired [403]') {
-          console.log('Sorry this verification link has expired.');
-        }
-      } else {
-        console.log('Thank you! Your email address has been confirmed.');
-        Router.go('bgAccounts.emailVerified');
+      displayVerificationLinkAlert(err);
+    });
+  } else {
+    Tracker.autorun(function() {
+      var user = Meteor.user();
+      if (user && user.emails && !user.emails[0].verified) {
+        displayUnverifiedEmailAlert();
       }
     });
   }
-  Tracker.autorun(function() {
-    var user = Meteor.user();
-    if (user && user.emails && !user.emails[0].verified) {
-      displayUnverifiedEmailAlert();
-    }
-  });
 });
 
+function displayVerificationLinkAlert(error) {
+  var container = $('main').find('.container-fluid')[0];
+  if (container) {
+    Blaze.renderWithData(Template.bgAccountsEmailVerified, { error: error },
+      container,
+      container.firstElementChild);
+  }
+}
+
 function displayUnverifiedEmailAlert() {
-  console.log('Displaying uverified email alert');
   var container = $('main').find('.container-fluid')[0];
   if (container) {
     Blaze.render(Template.bgAccountsEmailUnverifiedNotification,

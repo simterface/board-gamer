@@ -1,3 +1,19 @@
+Template.bgAccountsEmailVerified.onCreated(function() {
+  console.log(this.data);
+  console.log(!this.data.error);
+  this.failed = new ReactiveVar(!!this.data.error);
+});
+
+Template.bgAccountsEmailVerified.helpers({
+  alertClass: function() {
+    return Template.instance().failed.get() ?
+      'alert-danger' : 'alert-success';
+  },
+  failed: function() {
+    return Template.instance().failed.get();
+  },
+});
+
 /*
   Verification email resend statuses:
   NOT_SENT - email not resend

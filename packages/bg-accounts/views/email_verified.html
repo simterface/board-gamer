@@ -1,5 +1,16 @@
 <template name="bgAccountsEmailVerified">
-    <h2 class="text-success">Ваш Email успешно подтвержден, спасибо!</h2>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="alert {{alertClass}} fade in text-center">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{#if failed}}
+          <span>Истек срок действия ссылки <a href="#">Отправить новое письмо для подтверждения.</a></span>
+        {{else}}
+          Ваш Email успешно подтвержден, спасибо!
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="bgAccountsEmailUnverifiedNotification">
