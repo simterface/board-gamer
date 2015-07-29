@@ -1,4 +1,5 @@
 // TODO 10. Add user roles
+// TODO 11. Restrict access if email not verified
 
 // Basic accounts config
 Accounts.config({
@@ -7,6 +8,8 @@ Accounts.config({
 });
 
 Assets.getText('private/email_templates.json', function(err, result) {
+  // TODO switch to using meteorhacks:ssr for rendering emails
+  // http://themeteorchef.com/recipes/roll-your-own-authentication/
   if (err) {
     console.log(err.reason);
   } else {
@@ -54,8 +57,6 @@ Accounts.onCreateUser(function(options, user) {
   user.profile.nickname = user.profile.name;
   return user;
 });
-
-// TODO 3. Check if user email is verified
 
 function extractName(userObj) {
   var NONAME = 'Без имени';

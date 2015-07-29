@@ -15,7 +15,7 @@ Package.onUse(function(api) {
       'mrt:accounts-vk',
       'accounts-facebook',
       'accounts-google',
-      'accounts-ui',
+      // 'accounts-ui',
       'service-configuration',
       'iron:router',
   ], both);
@@ -54,5 +54,6 @@ Package.onUse(function(api) {
       'views/sign_in.html',
       'views/sign_in.css',
       'views/sign_in.js',
+      'views/email_verified.html',
     ], client);
 });
