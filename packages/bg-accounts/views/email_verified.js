@@ -1,58 +1,50 @@
-Template.bgAccountsEmailVerified.onCreated(function() {
-  console.log(this.data);
-  console.log(!this.data.error);
-  this.failed = new ReactiveVar(!!this.data.error);
+Template.bgAccountsEmailVerificationAlert.onCreated(function() {
+  this.alertMsg = new ReactiveVar(this.data.alertMsg);
+  this.hasError = new ReactiveVar(this.data.hasError);
+  this.showResendLink = new ReactiveVar(this.data.showResendLink);
+  /*
+    Verification email resend statuses:
+    NOT_SENT - email not resend
+    SENDING - trying to resent email
+    SEND_ERROR - error when trying to resend
+    SENT - email was sent successfully
+  */
+  this.resendStatus = new ReactiveVar('NOT_SENT');
 });
 
-Template.bgAccountsEmailVerified.helpers({
+Template.bgAccountsEmailVerificationAlert.helpers({
   alertClass: function() {
-    return Template.instance().failed.get() ?
+    return Template.instance().hasError.get() ?
       'alert-danger' : 'alert-success';
   },
-  failed: function() {
-    return Template.instance().failed.get();
+  alertMsg: function() {
+    return Template.instance().alertMsg.get();
   },
-});
-
-/*
-  Verification email resend statuses:
-  NOT_SENT - email not resend
-  SENDING - trying to resent email
-  SEND_ERROR - error when trying to resend
-  SENT - email was sent successfully
-*/
-Template.bgAccountsEmailUnverifiedNotification.onCreated(function() {
-  this.resendStatus = new ReactiveVar('NOT_SENT');
-  this.resendErrorReason =  new ReactiveVar('');
-});
-
-Template.bgAccountsEmailUnverifiedNotification.helpers({
-  alertClass: function() {
-    return Template.instance().resendStatus.get() === 'SENT' ?
-      'alert-success' : 'alert-danger';
+  showResendLink: function() {
+    return Template.instance().showResendLink.get() && Meteor.user();
   },
   resendStateEquals: function(state) {
     return Template.instance().resendStatus.get() === state;
   },
-  resendErrorMsg: function() {
-    return Template.instance().resendErrorReason.get();
-  },
 });
 
-Template.bgAccountsEmailUnverifiedNotification.events({
+Template.bgAccountsEmailVerificationAlert.events({
   'click .bgAccountsResendVerificationEmail': function(event, template) {
     event.preventDefault();
-    var resendStatus = Template.instance().resendStatus;
-    var resendErrorReason = Template.instance().resendErrorReason;
-    resendStatus.set('SENDING');
+    var instance = Template.instance();
+    instance.resendStatus.set('SENDING');
     Meteor.call('resendVerificationEmail', function(error, result) {
       if (error) {
-        resendErrorReason.set(error.reason);
-        resendStatus.set('SEND_ERROR');
+        instance.alertMsg.set(error.reason);
+        instance.hasError.set(true);
+
+        instance.resendStatus.set('SEND_ERROR');
+      } else {
+        instance.alertMsg.set('Письмо с подтверждением успешно отправлено');
+        instance.hasError.set(false);
+        instance.resendStatus.set('SENT');
       }
-      if (result) {
-        resendStatus.set('SENT');
-      }
+      instance.showResendLink.set(false);
     });
   },
 });

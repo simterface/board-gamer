@@ -15,22 +15,37 @@ Template.bgAccountsUI.onRendered(function() {
   }
 });
 
-function displayVerificationLinkAlert(error) {
+function displayEmailVerificationAlert(options) {
   var container = $('main').find('.container-fluid')[0];
   if (container) {
-    Blaze.renderWithData(Template.bgAccountsEmailVerified, { error: error },
+    Blaze.renderWithData(Template.bgAccountsEmailVerificationAlert,
+      options,
       container,
       container.firstElementChild);
   }
 }
 
-function displayUnverifiedEmailAlert() {
-  var container = $('main').find('.container-fluid')[0];
-  if (container) {
-    Blaze.render(Template.bgAccountsEmailUnverifiedNotification,
-      container,
-      container.firstElementChild);
+function displayVerificationLinkAlert(error) {
+  var options = new Object(null);
+  if (error) {
+    options.alertMsg = 'Истек срок действия ссылки';
+    options.hasError = true;
+    options.showResendLink = true;
+  } else {
+    options.alertMsg = 'Ваш Email успешно подтвержден, спасибо!';
+    options.hasError = false;
+    options.showResendLink = false;
   }
+  displayEmailVerificationAlert(options);
+}
+
+function displayUnverifiedEmailAlert() {
+  var options = new Object(null);
+  options.alertMsg = 'Ваш адрес электронной почты не подтвержден.' +
+    ' Некоторые возможности могут быть недоступны.';
+  options.hasError = true;
+  options.showResendLink = true;
+  displayEmailVerificationAlert(options);
 }
 
 Template.bgAccountsUI.helpers({

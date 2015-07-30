@@ -1,35 +1,18 @@
-<template name="bgAccountsEmailVerified">
+<template name="bgAccountsEmailVerificationAlert">
   <div class="row">
     <div class="col-xs-12">
       <div class="alert {{alertClass}} fade in text-center">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        {{#if failed}}
-          <span>Истек срок действия ссылки <a href="#">Отправить новое письмо для подтверждения.</a></span>
-        {{else}}
-          Ваш Email успешно подтвержден, спасибо!
-        {{/if}}
-      </div>
-    </div>
-  </div>
-</template>
-
-<template name="bgAccountsEmailUnverifiedNotification">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="alert {{alertClass}} fade in text-center">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        {{#if resendStateEquals 'NOT_SENT'}}
-          <span class="bgAccountsEmailUverifiedMsg">Ваш адрес электронной почты не подтвержден. Некоторые возможности могут быть недоступны. <a href="#" class="bgAccountsResendVerificationEmail">Отправить новое письмо для подтверждения.</a></span>
-        {{/if}}
-        {{#if resendStateEquals 'SENT'}}
-          <span>Письмо с подтверждением успешно отправлено</span>
-        {{/if}}
-        {{#if resendStateEquals 'SENDING'}}
-          {{> bgAccountsSpinner}}
-        {{/if}}
-        {{# if resendStateEquals 'SEND_ERROR'}}
-          {{resendErrorMsg}}
-        {{/if}}
+        <span id="bgAccountsEmailVerificationMsg">
+          {{#unless resendStateEquals 'SENDING'}}
+            {{alertMsg}}
+            {{#if showResendLink}}
+              <a href="#" class="bgAccountsResendVerificationEmail">Отправить новое письмо для подтверждения.</a>
+            {{/if}}
+          {{else}}
+            {{> bgAccountsSpinner}}
+          {{/unless}}
+        </span>
       </div>
     </div>
   </div>
