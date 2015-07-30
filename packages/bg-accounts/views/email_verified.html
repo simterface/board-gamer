@@ -1,0 +1,19 @@
+<template name="bgAccountsEmailVerificationAlert">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="alert {{alertClass}} fade in text-center">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <span id="bgAccountsEmailVerificationMsg">
+          {{#unless resendStateEquals 'SENDING'}}
+            {{alertMsg}}
+            {{#if showResendLink}}
+              <a href="#" class="bgAccountsResendVerificationEmail">Отправить новое письмо для подтверждения.</a>
+            {{/if}}
+          {{else}}
+            {{> bgAccountsSpinner}}
+          {{/unless}}
+        </span>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,8 @@
+<template name="bgAccountsUI">
+  <!-- {{> loginButtons}} -->
+  {{#if currentUser}}
+    <a href="#" class="bgAccounts-logout">{{currentUser.profile.name}} <span class="glyphicon glyphicon-log-out"></span></a>
+  {{else}}
+    <a href="/sign-in">Вход</a>
+  {{/if}}
+</template>

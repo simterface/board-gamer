@@ -1,7 +1,11 @@
 
-main section {
+main {
   min-height: 600px;
+}
+
+.bgmain-home {
   background-color: #ddd;
+  min-height: 400px;
   padding: 20px;
 }
 

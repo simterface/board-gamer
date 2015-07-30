@@ -8,3 +8,5 @@ meteor-platform
 iron:router
 meteorhacks:cluster
 twbs:bootstrap
+simterface:bg-accounts
+accounts-base
