@@ -50,13 +50,19 @@ Package.onUse(function(api) {
 
   // Client only
   api.addFiles([
-      'bg_accounts_ui.html',
-      'bg_accounts_ui.js',
+      'client_helpers.js',
+      'views/spinner.html',
+      'views/alert.html',
+      'views/alert.js',
+      'views/bg_accounts_ui.html',
+      'views/bg_accounts_ui.js',
+      'views/socials.html',
+      'views/socials.js',
+      'views/password_form.html',
+      'views/password_form.js',
       'views/sign_in.html',
       'views/sign_in.css',
       'views/sign_in.js',
-      'views/spinner.html',
-      'views/email_verified.html',
-      'views/email_verified.js',
+      'views/profile.html',
     ], client);
 });

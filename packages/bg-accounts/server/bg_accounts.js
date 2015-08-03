@@ -1,4 +1,3 @@
-// TODO 10. Add user roles
 // TODO 11. Restrict access if email not verified
 
 // Basic accounts config
@@ -6,6 +5,10 @@ Accounts.config({
   sendVerificationEmail: true,
   loginExpirationInDays: 30,
 });
+
+Accounts.urls.resetPassword = function(token) {
+  return Meteor.absoluteUrl(bgAccountsRouter.resetPwdPath + '/' + token);
+};
 
 Assets.getText('private/email_templates.json', function(err, result) {
   // TODO switch to using meteorhacks:ssr for rendering emails

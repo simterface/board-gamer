@@ -1,4 +1,4 @@
-Template.bgAccountsEmailVerificationAlert.onCreated(function() {
+Template.bgAccountsAlert.onCreated(function() {
   this.alertMsg = new ReactiveVar(this.data.alertMsg);
   this.hasError = new ReactiveVar(this.data.hasError);
   this.showResendLink = new ReactiveVar(this.data.showResendLink);
@@ -12,7 +12,7 @@ Template.bgAccountsEmailVerificationAlert.onCreated(function() {
   this.resendStatus = new ReactiveVar('NOT_SENT');
 });
 
-Template.bgAccountsEmailVerificationAlert.helpers({
+Template.bgAccountsAlert.helpers({
   alertClass: function() {
     return Template.instance().hasError.get() ?
       'alert-danger' : 'alert-success';
@@ -28,7 +28,7 @@ Template.bgAccountsEmailVerificationAlert.helpers({
   },
 });
 
-Template.bgAccountsEmailVerificationAlert.events({
+Template.bgAccountsAlert.events({
   'click .bgAccountsResendVerificationEmail': function(event, template) {
     event.preventDefault();
     var instance = Template.instance();

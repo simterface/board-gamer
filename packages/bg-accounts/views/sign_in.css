@@ -9,6 +9,8 @@
   margin-top: 0;
 }
 
+/****Socials****/
+
 @media screen and (min-width: 768px) {
    .bgaccounts-socials {
      border-right: 1px solid #ddd;
@@ -89,4 +91,10 @@
   background-color: #c43421;
   border: 1px solid #6d1d12;
   color: #fff;
+}
+
+/****Password Form****/
+nav.bgaccounts-pwdform {
+  font-size: 85%;
+  /*line-height: normal;*/
 }

@@ -1,5 +1,4 @@
 // TODO 7. Add profile management page: name/nickname/emails/password
-
 Template.bgAccountsUI.onRendered(function() {
   if (Accounts._verifyEmailToken) {
     Accounts.verifyEmail(Accounts._verifyEmailToken, function(err) {
@@ -15,16 +14,6 @@ Template.bgAccountsUI.onRendered(function() {
   }
 });
 
-function displayEmailVerificationAlert(options) {
-  var container = $('main').find('.container-fluid')[0];
-  if (container) {
-    Blaze.renderWithData(Template.bgAccountsEmailVerificationAlert,
-      options,
-      container,
-      container.firstElementChild);
-  }
-}
-
 function displayVerificationLinkAlert(error) {
   var options = new Object(null);
   if (error) {
@@ -36,16 +25,17 @@ function displayVerificationLinkAlert(error) {
     options.hasError = false;
     options.showResendLink = false;
   }
-  displayEmailVerificationAlert(options);
+  Header.displayAlert(options.alertMsg,
+    options.hasError,
+    options.showResendLink);
 }
 
 function displayUnverifiedEmailAlert() {
-  var options = new Object(null);
-  options.alertMsg = 'Ваш адрес электронной почты не подтвержден.' +
+  var msg = 'Ваш адрес электронной почты не подтвержден.' +
     ' Некоторые возможности могут быть недоступны.';
-  options.hasError = true;
-  options.showResendLink = true;
-  displayEmailVerificationAlert(options);
+  Header.displayAlert(msg,
+    true /* Has error */,
+    true /* Show resend link */);
 }
 
 Template.bgAccountsUI.helpers({
