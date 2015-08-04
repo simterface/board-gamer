@@ -44,7 +44,7 @@ Package.onUse(function(api) {
   // Server only
   api.addFiles([
       'server/config.js',
-      'server/email_tmp.js', // TODO remove tmp file
+      'server/email_tmp.js', // TODO Remove tmp file
       'server/bg_accounts.js',
     ], server);
 
@@ -64,5 +64,8 @@ Package.onUse(function(api) {
       'views/sign_in.css',
       'views/sign_in.js',
       'views/profile.html',
+      'views/profile.js',
+      'views/change_password.html',
+      'views/change_password.js',
     ], client);
 });

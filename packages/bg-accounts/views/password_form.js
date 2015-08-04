@@ -100,7 +100,7 @@ submitMethods.RESET = function(form, data) {
 
 Template.bgAccountsPasswordForm.events({
   'submit #bgAccountsLoginForm': function(event, template) {
-    // TODO add spinner when in progress
+    // TODO Add spinner when in progress
     event.preventDefault();
     SignInPanel.clearAlerts();
     var form = event.target;

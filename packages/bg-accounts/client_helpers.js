@@ -2,7 +2,7 @@ SignInPanel = {};
 
 // Shows error msg block at the top of the panel body
 SignInPanel.displayAlert = function(msg, hasError) {
-  var alertBlock = buildAlertBlock(msg, hasError);
+  var alertBlock = SignInPanel.buildAlertBlock(msg, hasError);
   $('#bgAccountsLoginPanel').find('.panel-body').prepend(alertBlock);
 };
 
@@ -10,13 +10,14 @@ SignInPanel.clearAlerts = function() {
   $('#bgAccountsLoginPanel').find('.panel-body > .alert').alert('close');
 };
 
-function buildAlertBlock(msg, hasError) {
+
+SignInPanel.buildAlertBlock = function(msg, hasError) {
   var alertClass = hasError ? 'alert-danger' : 'alert-success';
   return $('<div></div>')
   .addClass('alert ' + alertClass + ' fade in text-center')
   .append('<a href="#" class="close" data-dismiss="alert">&times;</a>')
   .append(msg);
-}
+};
 
 /*
   States:

@@ -26,7 +26,7 @@ function loginSocial(network) {
     SignInPanel.displayAlert(composeErrorMsg(err), true /* HasError */);
     return;
   }
-  loginMethod(function(err) {
+  loginMethod({requestPermissions: ['email']}, function(err) {
     if (err) {
       SignInPanel.displayAlert(composeErrorMsg(err), true /* HasError */);
     } else {

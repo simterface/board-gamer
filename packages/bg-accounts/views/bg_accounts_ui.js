@@ -14,6 +14,13 @@ Template.bgAccountsUI.onRendered(function() {
   }
 });
 
+Template.bgAccountsUI.helpers({
+  showChangePassword: function() {
+    return Meteor.user().profile &&
+      Meteor.user().profile.type === 'password';
+  },
+});
+
 function displayVerificationLinkAlert(error) {
   var options = new Object(null);
   if (error) {
@@ -54,6 +61,7 @@ Template.bgAccountsUI.events({
       if (err) {
         console.error('Failed to log out: %s', err.reason);
       }
+      bgAccountsRouter.goHome();
     });
   },
 });

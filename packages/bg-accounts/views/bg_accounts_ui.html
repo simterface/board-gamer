@@ -1,8 +1,21 @@
 <template name="bgAccountsUI">
   <!-- {{> loginButtons}} -->
-  {{#if currentUser}}
-    <a href="#" class="bgAccounts-logout">{{currentUser.profile.name}} <span class="glyphicon glyphicon-log-out"></span></a>
-  {{else}}
-    <a href="/sign-in">Вход</a>
-  {{/if}}
+    {{#if currentUser}}
+      <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{currentUser.profile.name}}  <b class="caret"></b></a>
+        <ul role="menu" class="dropdown-menu">
+            <li><a href="/accounts/profile"><span class="glyphicon glyphicon-pencil"></span> Профиль</a></li>
+            {{#if showChangePassword}}
+              <li><a href="/accounts/change-password"><span class="glyphicon glyphicon-lock"></span> Смена пароля</a></li>
+            {{/if}}
+            <li><a href="#" class="bgAccounts-logout"><span class="glyphicon glyphicon-log-out"></span> Выход</a></li>
+        </ul>
+      </li>
+    {{else}}
+    <li>
+      <a href="/sign-in">Вход</a>
+    </li>
+    {{/if}}
+
+
 </template>

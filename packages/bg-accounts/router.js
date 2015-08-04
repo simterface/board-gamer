@@ -1,8 +1,10 @@
-// TODO make route available only for unauthorized users
 var signInRoute = {
   name: 'bgAccounts.signIn',
   template: 'bgAccountsSignIn',
   onBeforeAction: function() {
+    if (Meteor.user()) {
+      this.redirect('/');
+    }
     if (SignInState) {
       SignInState.set('SIGN_IN');
     }
@@ -10,7 +12,6 @@ var signInRoute = {
   },
 };
 
-// TODO make route available only with token
 var resetPassword = {
   name: 'bgAccounts.resetPassword',
   template: 'bgAccountsSignIn',
@@ -25,19 +26,39 @@ var resetPassword = {
   },
 };
 
-// TODO make route available only for authorized users
+var changePassword = {
+  name: 'bgAccounts.changePassword',
+  template: 'bgAccountsChangePassword',
+  onBeforeAction: function() {
+    if (!Meteor.user() ||
+      !Meteor.user().profile ||
+      Meteor.user().profile.type !== 'password'
+  ) {
+      this.redirect('/');
+    }
+    this.next();
+  },
+};
+
 var profile = {
   name: 'bgAccounts.profile',
   template: 'bgAccountsProfile',
+  onBeforeAction: function() {
+    if (!Meteor.user()) {
+      this.redirect('bgAccounts.signIn');
+    }
+    this.next();
+  },
 };
 
 Router.route('/sign-in', signInRoute);
 Router.route('accounts/reset-password/:token', resetPassword);
 Router.route('accounts/profile', profile);
+Router.route('accounts/change-password', changePassword);
 
 bgAccountsRouter = {};
 bgAccountsRouter.goHome = function(delay) {
-  // TODO: place default route to some config
+  // TODO: Move default route to config
   var route = '/';
   if (delay > 0) {
     Meteor.setTimeout(function() {
