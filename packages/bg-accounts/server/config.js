@@ -1,23 +1,26 @@
 /*
-  configuring accounts and login services
+  Configuring accounts and login services
   all services ids and secrets stored in private/services_settings.json
 */
 
-var configs = JSON.parse(Assets.getText("private/services_settings.json"));
+var configs = JSON.parse(Assets.getText('private/services_settings.json'));
 
-//accounts
+// Accounts
+KNOWN_SERVICES = ['password', 'vk', 'facebook', 'google',];
 
-//vk
+// VK
+
+// There is an error in mrt:accounts-vk. Email not inserted into user record
 ServiceConfiguration.configurations.upsert({service: 'vk'}, {
-  $set: configs.vk
+  $set: configs.vk,
 });
 
-//facebook
+// Facebook
 ServiceConfiguration.configurations.upsert({service: 'facebook'}, {
-  $set: configs.facebook
+  $set: configs.facebook,
 });
 
-//google
+// Google
 ServiceConfiguration.configurations.upsert({service: 'google'},{
-  $set: configs.google
+  $set: configs.google,
 });

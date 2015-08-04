@@ -1,0 +1,39 @@
+<template name="bgAccountsProfile">
+  <!--  TODO Create profile page-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        {{#with currentUser}}
+        <form id="bgAccountsProfileForm">
+            <h2>Профиль пользователя</h2>
+            <hr>
+          <div class="form-group form-group-lg">
+            <label class="control-label" for="profFullName">Имя пользователя</label>
+            <input type="text" class="form-control" name="name" id="profFullName" value="{{profile.name}}">
+          </div>
+          <div class="form-group form-group-lg">
+            <label class="control-label" for="profNickname">Имя в играх</label>
+            <input type="text" class="form-control" name="nickname" id="profNickname" value="{{profile.nickname}}">
+          </div>
+          <div class="form-group form-group-lg">
+            <label class="control-label" for="profEmail">Адрес электронной почты</label>
+            <input type="email" class="form-control" name="email" id="profEmail" value="{{profile.email}}">
+            {{#if emailChanged}}
+              <p class="help-block">Для повторного входа необходимо будет использовать новый email</p>
+            {{/if}}
+          </div>
+          {{#if emailChanged}}
+            <div class="form-group form-group-lg">
+              <label class="control-label" for="profConfirmEmail">Подтверждение адреса электронной почты</label>
+              <input type="email" class="form-control" name="confirmEmail" id="profConfirmEmail">
+            </div>
+          {{/if}}
+          <div class="form-group form-group-lg">
+            <button type="submit" class="btn btn-lg btn-primary btn-block">Сохранить изменения</button>
+          </div>
+        </form>
+        {{/with}}
+      </div>
+    </div>
+  </div>
+</template>

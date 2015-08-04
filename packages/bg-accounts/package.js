@@ -44,19 +44,28 @@ Package.onUse(function(api) {
   // Server only
   api.addFiles([
       'server/config.js',
-      'server/email_tmp.js', // TODO remove tmp file
+      'server/email_tmp.js', // TODO Remove tmp file
       'server/bg_accounts.js',
     ], server);
 
   // Client only
   api.addFiles([
-      'bg_accounts_ui.html',
-      'bg_accounts_ui.js',
+      'client_helpers.js',
+      'views/spinner.html',
+      'views/alert.html',
+      'views/alert.js',
+      'views/bg_accounts_ui.html',
+      'views/bg_accounts_ui.js',
+      'views/socials.html',
+      'views/socials.js',
+      'views/password_form.html',
+      'views/password_form.js',
       'views/sign_in.html',
       'views/sign_in.css',
       'views/sign_in.js',
-      'views/spinner.html',
-      'views/email_verified.html',
-      'views/email_verified.js',
+      'views/profile.html',
+      'views/profile.js',
+      'views/change_password.html',
+      'views/change_password.js',
     ], client);
 });
